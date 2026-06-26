@@ -31,20 +31,20 @@ Legend: `[x]` done · `[ ]` open
 - [x] **4** Writeup Q2 (per-optimization speedup table: +KV cache → +compile → …)
 - [x] **4** Writeup Q3 / Q4
 - [x] Self-checks pass (fp32 correctness vs V0)
-- [x] Speedup target met — end-to-end ≈7.9× vs V0 on H100 (target ≥4.0× = excellent)
+- [x] Speedup target met — end-to-end ≈7.8× vs V0 on H100 (target ≥4.0× = excellent)
 - [x] Traces exported → [`results/hw2/`](results/hw2/) (`trace_baseline.json`, `trace_optimized.json`, `trace_check.json`)
 
 ## HW3 — `torch.compile` & CUDA Graphs
 [`hw3_compile_cuda_graphs.ipynb`](hw3_compile_cuda_graphs.ipynb) · L2 §03 (compilation, CUDA graphs) · L1 §07 (profiling)
 
-- [x] **1** `sweep_elementwise_times` + `estimate_launch_overhead_us` (per-launch overhead ≈6.9 µs on H100)
+- [x] **1** `sweep_elementwise_times` + `estimate_launch_overhead_us` (per-launch overhead ≈6.8 µs on H100)
 - [x] **2** `fixed_decode_step` — same math as the broken step, zero graph breaks (`fullgraph=True`)
 - [x] **3** `make_graphed_callable` — manual CUDA-graph capture + replay
 - [x] **4** Writeup Q1 (`.item()` / Python `if` / `print` graph breaks; why `.item()` is doubly bad)
 - [x] **4** Writeup Q2 (why replay helps small-batch decode; capture/replay constraints)
 - [x] **4** Writeup Q3 (when `torch.compile` doesn't help, and how to detect it)
 - [x] Self-checks pass
-- [x] Final 256-step benchmark on GPU — manual CUDA graph ≈4.2× over eager (H100)
+- [x] Final 256-step benchmark on GPU — manual CUDA graph ≈4.0× over eager (H100)
 - [x] Plots produced → [`results/hw3/launch_overhead.png`](results/hw3/launch_overhead.png), [`results/hw3/decode_step_latency.png`](results/hw3/decode_step_latency.png)
 
 ---
@@ -79,9 +79,14 @@ notebooks on real hardware.
   finds `Python.h` (without it the compiled cells fall back silently).
 - [x] **Re-run notebooks on the H100** — executed headless via
   `jupyter nbconvert --execute` over SSH (notebooks staged in `~/repo`), refreshed
-  all `results/` artifacts and copied them back. H100 figures (this run):
-  HW1 launch overhead ≈6.9 µs · HW2 ≈7.9× vs V0 · HW3 manual CUDA graph ≈4.2× over
-  eager. Numbers differ from the earlier committed run (different torch/hardware).
+  all `results/` artifacts and copied them back. Final rigorous run had GPU clocks
+  locked to 1980 MHz (`sudo nvidia-smi -pm 1; -lgc 1980`) for reproducible timing,
+  plus a warmup/iters bump in HW2 `generate_optimized`. H100 figures:
+  HW1 launch overhead ≈6.8 µs (matmul ≈787 TFLOP/s) · HW2 ≈7.8× vs V0 · HW3 manual
+  CUDA graph ≈4.0× over eager. Clock-locking confirmed the GPU was already at its
+  boost ceiling — numbers are at the hardware limit, not throttled (run-to-run
+  spread ~3–6%). Lower multipliers than the earlier run reflect newer PyTorch's
+  ~6.8 µs (vs ~19 µs) launch overhead making the baselines faster, not worse work.
 - [ ] **Remote Jupyter for VS Code** *(optional)* — not needed for the re-run
   above (headless execution covered it). To work interactively: register venv
   kernel, launch JupyterLab on `localhost:8888`, SSH-forward 8888, connect VS Code

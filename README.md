@@ -73,16 +73,21 @@ Outputs: [`results/hw3/launch_overhead.png`](results/hw3/launch_overhead.png),
 
 ## Results (1× H100 80GB SXM, PyTorch 2.12.1+cu130)
 
-Headline figures from the latest end-to-end run on the Nebius H100:
+Headline figures from the latest end-to-end run on the Nebius H100, with the GPU
+clocks **locked to 1980 MHz** (`nvidia-smi -lgc`) for reproducible timing:
 
 | HW | Metric | Result |
 |----|--------|--------|
-| HW1 | Per-launch kernel overhead | ≈6.9 µs |
-| HW2 | Optimized decode vs baseline **V0** | ≈7.9× (target ≥4× = excellent) |
-| HW3 | Manual CUDA graph vs eager decode step | ≈4.2× (fixed step compiles `fullgraph=True`, 0 graph breaks) |
+| HW1 | Per-launch kernel overhead | ≈6.8 µs |
+| HW1 | Matmul peak (N=4096) | ≈787 TFLOP/s (~80% of bf16 peak) |
+| HW2 | Optimized decode vs baseline **V0** | ≈7.8× (target ≥4× = excellent) |
+| HW3 | Manual CUDA graph vs eager decode step | ≈4.0× (fixed step compiles `fullgraph=True`, 0 graph breaks) |
 
-Exact numbers vary with PyTorch version and GPU; rerun the notebooks to refresh
-the `results/` artifacts for your hardware.
+Exact numbers vary with PyTorch version and GPU (run-to-run spread is ~3–6% even
+with locked clocks); rerun the notebooks to refresh the `results/` artifacts for
+your hardware. Note newer PyTorch has lower kernel-launch overhead (≈6.8 µs here
+vs ≈19 µs on older builds), which makes the eager/V0 baselines faster and so
+*shrinks* the CUDA-graph speedup multipliers — a faster baseline, not worse work.
 
 ---
 
