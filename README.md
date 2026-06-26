@@ -71,6 +71,21 @@ Outputs: [`results/hw3/launch_overhead.png`](results/hw3/launch_overhead.png),
 
 ---
 
+## Results (1× H100 80GB SXM, PyTorch 2.12.1+cu130)
+
+Headline figures from the latest end-to-end run on the Nebius H100:
+
+| HW | Metric | Result |
+|----|--------|--------|
+| HW1 | Per-launch kernel overhead | ≈6.9 µs |
+| HW2 | Optimized decode vs baseline **V0** | ≈7.9× (target ≥4× = excellent) |
+| HW3 | Manual CUDA graph vs eager decode step | ≈4.2× (fixed step compiles `fullgraph=True`, 0 graph breaks) |
+
+Exact numbers vary with PyTorch version and GPU; rerun the notebooks to refresh
+the `results/` artifacts for your hardware.
+
+---
+
 ## Running
 
 Notebooks run on a CUDA GPU with a recent PyTorch. Open each `.ipynb` and run top to

@@ -8,73 +8,73 @@
       "label": "elementwise",
       "series": "memory-bound",
       "ai": 0.25,
-      "achieved_tflops": 0.5019703896932234
+      "achieved_tflops": 0.6604787254162888
     },
     {
       "label": "K=1",
       "series": "compute-K (eager)",
       "ai": 0.5,
-      "achieved_tflops": 0.186998610965537
+      "achieved_tflops": 0.6699224142091205
     },
     {
       "label": "K=4",
       "series": "compute-K (eager)",
       "ai": 2.0,
-      "achieved_tflops": 0.25105821007344714
+      "achieved_tflops": 0.6754547827665632
     },
     {
       "label": "K=16",
       "series": "compute-K (eager)",
       "ai": 8.0,
-      "achieved_tflops": 0.2734788489761363
+      "achieved_tflops": 0.677364840851691
     },
     {
       "label": "K=64",
       "series": "compute-K (eager)",
       "ai": 32.0,
-      "achieved_tflops": 0.3082899097442467
+      "achieved_tflops": 0.6772885622974054
     },
     {
       "label": "K=1",
       "series": "compute-K (compiled)",
       "ai": 0.5,
-      "achieved_tflops": 0.964473903506947
+      "achieved_tflops": 0.9154670598375013
     },
     {
       "label": "K=4",
       "series": "compute-K (compiled)",
       "ai": 2.0,
-      "achieved_tflops": 2.214100762816917
+      "achieved_tflops": 3.702664191391955
     },
     {
       "label": "K=16",
       "series": "compute-K (compiled)",
       "ai": 8.0,
-      "achieved_tflops": 10.135208197057342
+      "achieved_tflops": 14.518185893820771
     },
     {
       "label": "K=64",
       "series": "compute-K (compiled)",
       "ai": 32.0,
-      "achieved_tflops": 16.81909502748582
+      "achieved_tflops": 40.799631786558514
     },
     {
       "label": "N=1024",
       "series": "matmul-N",
       "ai": 341.3333333333333,
-      "achieved_tflops": 28.272554246637036
+      "achieved_tflops": 204.862511336411
     },
     {
       "label": "N=2048",
       "series": "matmul-N",
       "ai": 682.6666666666666,
-      "achieved_tflops": 35.359209567954295
+      "achieved_tflops": 692.9512316444057
     },
     {
       "label": "N=4096",
       "series": "matmul-N",
       "ai": 1365.3333333333333,
-      "achieved_tflops": 42.49284216308641
+      "achieved_tflops": 788.915682482782
     }
   ]
 }
